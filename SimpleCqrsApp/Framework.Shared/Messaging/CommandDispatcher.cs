@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Framework.Shared.Messaging
 {

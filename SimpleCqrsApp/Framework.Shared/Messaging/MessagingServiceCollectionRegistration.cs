@@ -8,15 +8,15 @@ namespace Framework.Shared.Messaging
 {
     public static class MessagingServiceCollectionRegistration
     {
-        public static IServiceCollection AddMessagingDependencies(this IServiceCollection service)
+        public static void AddMessagingDependencies(this IServiceCollection serviceCollection, string assemblyNameToCommandAndHandlers)
         {
-            var serviceCollection = new ServiceCollection()
+            Assembly.Load(assemblyNameToCommandAndHandlers);
+
+            serviceCollection
                 .AddSingleton<ICommandDispatcher, CommandDispatcher>()
                 .AddSingleton<IEventDispatcher, EventDispatcher>()
-                .AddSingletonHandlers(typeof(ICommandHandler<>))
-                .AddSingletonHandlers(typeof(IEventHandler<>));
-
-            return serviceCollection;
+                .AddSingletonHandlers(typeof(ICommandHandler<>));
+                //.AddSingletonHandlers(typeof(IEventHandler<>));
         }
 
         public static IServiceCollection AddSingletonHandlers(this IServiceCollection serviceCollection, Type openGenericType)
@@ -25,6 +25,11 @@ namespace Framework.Shared.Messaging
 
             foreach (var assembly in assemblies)
             {
+                if (assembly.GetName().Name == "CustomerServiceApp.Domain")
+                {
+                    var name = assembly.GetName();
+                }
+
                 var concreteCommandHandlerTypes = GetConcreteCommandHandlerTypes(openGenericType, assembly);
 
                 foreach (var concreteCommandHandlerType in concreteCommandHandlerTypes)

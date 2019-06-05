@@ -20,9 +20,9 @@ namespace CustomerServiceApp.Host.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateCustomerCommand command)
         {
-            var commandId = await _commandBus.SendAsync(command).ConfigureAwait(false);
+            await _commandBus.SendAsync(command).ConfigureAwait(false);
 
-            return Accepted(commandId);
+            return Accepted(command.CommandId);
         }
 
         [HttpGet("{id}")]

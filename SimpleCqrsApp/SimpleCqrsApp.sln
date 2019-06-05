@@ -33,6 +33,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolicyAdminServiceApp.Host.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolicyAdminServiceApp.Domain", "PolicyAdminServiceApp.Domain\PolicyAdminServiceApp.Domain.csproj", "{F2E11421-57BF-4212-9A21-5FEFD5FAB118}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2D579012-C599-4D02-BDF4-0C8D91355253}"
+	ProjectSection(SolutionItems) = preProject
+		MicroserviceArchitecture.vsdx = MicroserviceArchitecture.vsdx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

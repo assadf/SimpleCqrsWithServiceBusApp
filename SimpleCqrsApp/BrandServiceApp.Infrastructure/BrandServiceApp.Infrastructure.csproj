@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BrandServiceApp.Domain\BrandServiceApp.Domain.csproj" />
+    <ProjectReference Include="..\CustomerServiceApp.Domain\CustomerServiceApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>

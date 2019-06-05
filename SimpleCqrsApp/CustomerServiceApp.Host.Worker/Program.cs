@@ -12,7 +12,7 @@ using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
-namespace CustomerServiceApp.Host.Worker
+namespace CustomerServiceApp.Host.CommandsWorker
 {
     public class Program
     {
@@ -38,7 +38,7 @@ namespace CustomerServiceApp.Host.Worker
 
             _dispatcher = new CommandDispatcher(serviceCollection.BuildServiceProvider());
             _bus = new AzureCommandBus(connectionString, commandQueueName);
-            GetMessage();
+            RegisterOnMessageHandlerAndReceiveMessages();
 
             while (IsRunning)
             {
@@ -57,7 +57,7 @@ namespace CustomerServiceApp.Host.Worker
             Console.ReadLine();
         }
 
-        private static void GetMessage()
+        private static void RegisterOnMessageHandlerAndReceiveMessages()
         {
             var messageHandlerOptions = new MessageHandlerOptions(ExceptionReceivedHandler)
             {
@@ -72,14 +72,11 @@ namespace CustomerServiceApp.Host.Worker
         {
             try
             {
-                await _bus.QueueClient.CompleteAsync(message.SystemProperties.LockToken);
-
                 ICommand command;
 
                 if (message.ContentType == typeof(CreateCustomerCommand).Name)
                 {
-                    command = JsonConvert.DeserializeObject<CreateCustomerCommand>(
-                        Encoding.UTF8.GetString(message.Body));
+                    command = JsonConvert.DeserializeObject<CreateCustomerCommand>(Encoding.UTF8.GetString(message.Body));
                 }
                 else
                 {
@@ -87,6 +84,8 @@ namespace CustomerServiceApp.Host.Worker
                 }
 
                 await _dispatcher.DispatchAsync(command).ConfigureAwait(false);
+
+                await _bus.QueueClient.CompleteAsync(message.SystemProperties.LockToken).ConfigureAwait(false);
             }
             catch (Exception e)
             {

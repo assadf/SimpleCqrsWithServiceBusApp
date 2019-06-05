@@ -22,7 +22,7 @@ namespace Framework.Shared.Messaging
             var eventJson = JsonConvert.SerializeObject(@event);
             var message = new Message(Encoding.UTF8.GetBytes(eventJson))
             {
-                ContentType = typeof(T).Name
+                ContentType = @event.GetType().Name
             };
 
             await topicClient.SendAsync(message).ConfigureAwait(false);

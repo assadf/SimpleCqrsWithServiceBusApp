@@ -3,7 +3,7 @@ using Framework.Shared.Core;
 
 namespace CustomerServiceApp.Domain.Entities.BrandAggregate
 {
-    public class Brand : DomainEntity
+    public class Brand : DomainEntity, IAggregateRoot
     {
         public int Id { get; }
 

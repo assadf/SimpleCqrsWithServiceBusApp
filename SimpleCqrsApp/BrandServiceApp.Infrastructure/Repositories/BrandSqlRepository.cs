@@ -7,6 +7,7 @@ namespace BrandServiceApp.Infrastructure.Repositories
     {
         public async Task<dynamic> GetBrandAsync(int id)
         {
+            // Fetch from Brand SQL database
             return new 
             {
                 Id = 1,

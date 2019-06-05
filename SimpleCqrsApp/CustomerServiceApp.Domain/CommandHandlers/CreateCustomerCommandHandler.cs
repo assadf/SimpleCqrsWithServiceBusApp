@@ -2,7 +2,6 @@
 using CustomerServiceApp.Domain.Commands;
 using CustomerServiceApp.Domain.Entities.BrandAggregate;
 using CustomerServiceApp.Domain.Entities.CustomerAggregate;
-using CustomerServiceApp.Domain.Events;
 using Framework.Shared.Messaging;
 
 namespace CustomerServiceApp.Domain.CommandHandlers

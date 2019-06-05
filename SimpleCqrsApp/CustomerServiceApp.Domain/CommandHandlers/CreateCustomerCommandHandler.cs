@@ -35,7 +35,7 @@ namespace CustomerServiceApp.Domain.CommandHandlers
                 customer.IsEligible(brand);
             }
 
-            await customer.RaiseEventsAsync(_eventBus).ConfigureAwait(false);
+            await customer.SendEventsAsync(_eventBus).ConfigureAwait(false);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Framework.Shared.Core
             Id = id;
         }
 
-        public async Task RaiseEventsAsync(IEventBus eventBus)
+        public async Task SendEventsAsync(IEventBus eventBus)
         {
             foreach (var @event in Events)
             {

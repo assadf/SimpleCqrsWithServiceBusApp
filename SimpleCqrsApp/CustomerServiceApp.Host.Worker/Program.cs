@@ -31,6 +31,7 @@ namespace CustomerServiceApp.Host.Worker
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddSingleton<ICustomerRepository, CustomerSqlRepository>();
             serviceCollection.AddSingleton<IBrandRepository, BrandRestApiRepository>();
+            serviceCollection.AddSingleton<IEventBus>(new AzureEventBus(connectionString));
             serviceCollection.AddMessagingDependencies("CustomerServiceApp.Domain");
 
             _dispatcher = new CommandDispatcher(serviceCollection.BuildServiceProvider());

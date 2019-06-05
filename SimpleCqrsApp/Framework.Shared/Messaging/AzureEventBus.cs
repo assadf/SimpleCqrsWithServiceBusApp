@@ -15,7 +15,7 @@ namespace Framework.Shared.Messaging
         }
 
 
-        public Task SendAsync<T>(T @event) where T : IEvent
+        public async Task SendAsync<T>(T @event) where T : IEvent
         {
             var topicClient = new TopicClient(_connectionString, @event.CategoryName);
 
@@ -25,7 +25,9 @@ namespace Framework.Shared.Messaging
                 ContentType = typeof(T).Name
             };
 
-            //topicClient.SendAsync(new Message(Encoding.UTF8.GetBytes(@event)));
+            await topicClient.SendAsync(message).ConfigureAwait(false);
+
+            await topicClient.CloseAsync().ConfigureAwait(false);
         }
     }
 }

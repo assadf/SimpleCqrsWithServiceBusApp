@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Threading;
+﻿using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
@@ -22,7 +20,7 @@ namespace Framework.Shared.Messaging
             var message = new Message(Encoding.UTF8.GetBytes(commandMessage))
             {
                 MessageId = command.CommandId.ToString(),
-                ContentType = command.GetType().Name
+                ContentType = typeof(T).Name
             };
 
             await QueueClient.SendAsync(message).ConfigureAwait(false);

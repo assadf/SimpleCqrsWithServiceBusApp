@@ -19,8 +19,8 @@ namespace CustomerServiceApp.Host.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = "Endpoint=sb://sb-assad.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=53qlUWRtPtl4ol9pOCXiB0d74CMNcL8051Av2yvUq5s=";
-            var commandQueueName = "CustomerCommands";
+            var connectionString = "Endpoint=sb://sb-poc-assad.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=aFc9QxcotbKor/RJTt/nXZKuFGKbz1K1J30ZhmglvXM=";
+            var commandQueueName = "customer-commands";
 
             services.AddSingleton<ICommandBus>(new AzureCommandBus(connectionString, commandQueueName));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -7,6 +7,8 @@ namespace CustomerServiceApp.Domain.Events
     {
         public Guid EventId { get; }
 
+        public string CategoryName => EventCategories.NewCustomerFailedEvent;
+
         public CustomerFailedToCreateEvent()
         {
             EventId = Guid.NewGuid();

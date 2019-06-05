@@ -5,5 +5,7 @@ namespace Framework.Shared.Messaging
     public interface IEvent
     {
         Guid EventId { get; }
+
+        string CategoryName { get; }
     }
 }

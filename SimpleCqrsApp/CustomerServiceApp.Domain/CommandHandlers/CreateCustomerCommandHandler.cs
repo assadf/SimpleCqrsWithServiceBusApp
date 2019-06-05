@@ -11,11 +11,13 @@ namespace CustomerServiceApp.Domain.CommandHandlers
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IBrandRepository _brandRepository;
+        private readonly IEventBus _eventBus;
 
-        public CreateCustomerCommandHandler(ICustomerRepository customerRepository, IBrandRepository brandRepository)
+        public CreateCustomerCommandHandler(ICustomerRepository customerRepository, IBrandRepository brandRepository, IEventBus eventBus)
         {
             _customerRepository = customerRepository;
             _brandRepository = brandRepository;
+            _eventBus = eventBus;
         }
 
         public async Task HandleAsync(CreateCustomerCommand command)
@@ -32,6 +34,8 @@ namespace CustomerServiceApp.Domain.CommandHandlers
                 var brand = await _brandRepository.GetBrandAsync(command.BrandId).ConfigureAwait(false);
                 customer.IsEligible(brand);
             }
+
+            await customer.RaiseEventsAsync(_eventBus).ConfigureAwait(false);
         }
     }
 }

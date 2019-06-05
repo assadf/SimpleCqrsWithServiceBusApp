@@ -17,14 +17,16 @@ namespace CustomerServiceApp.Host.Worker
     {
         private static AzureCommandBus _bus;
         private static CommandDispatcher _dispatcher;
+        private static bool IsRunning;
 
         public static void Main(string[] args)
         {
+            IsRunning = true;
+
             Console.WriteLine("Started Customer Worker");
 
-            var connectionString =
-                "Endpoint=sb://sb-assad.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=53qlUWRtPtl4ol9pOCXiB0d74CMNcL8051Av2yvUq5s=";
-            var commandQueueName = "CustomerCommands";
+            var connectionString = "Endpoint=sb://sb-poc-assad.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=aFc9QxcotbKor/RJTt/nXZKuFGKbz1K1J30ZhmglvXM=";
+            var commandQueueName = "customer-commands";
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddSingleton<ICustomerRepository, CustomerSqlRepository>();
@@ -35,7 +37,7 @@ namespace CustomerServiceApp.Host.Worker
             _bus = new AzureCommandBus(connectionString, commandQueueName);
             GetMessage();
 
-            while (true)
+            while (IsRunning)
             {
                 try
                 {
@@ -47,6 +49,9 @@ namespace CustomerServiceApp.Host.Worker
                     throw;
                 }
             }
+
+            Console.WriteLine("Stopping Service");
+            Console.ReadLine();
         }
 
         private static void GetMessage()
@@ -62,20 +67,30 @@ namespace CustomerServiceApp.Host.Worker
 
         private static async Task ProcessMessagesAsync(Message message, CancellationToken token)
         {
-            await _bus.QueueClient.CompleteAsync(message.SystemProperties.LockToken);
-
-            ICommand command;
-
-            if (message.ContentType == typeof(CreateCustomerCommand).Name)
+            try
             {
-                command = JsonConvert.DeserializeObject<CreateCustomerCommand>(Encoding.UTF8.GetString(message.Body));
-            }
-            else
-            {
-                throw new NotSupportedException($"Command {message.ContentType} is not supported");
-            }
+                await _bus.QueueClient.CompleteAsync(message.SystemProperties.LockToken);
 
-            await _dispatcher.DispatchAsync(command).ConfigureAwait(false);
+                ICommand command;
+
+                if (message.ContentType == typeof(CreateCustomerCommand).Name)
+                {
+                    command = JsonConvert.DeserializeObject<CreateCustomerCommand>(
+                        Encoding.UTF8.GetString(message.Body));
+                }
+                else
+                {
+                    throw new NotSupportedException($"Command {message.ContentType} is not supported");
+                }
+
+                await _dispatcher.DispatchAsync(command).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                IsRunning = false;
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         private static Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)

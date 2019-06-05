@@ -7,6 +7,8 @@ namespace CustomerServiceApp.Domain.Events
     {
         public Guid EventId { get; }
 
+        public string CategoryName => EventCategories.NewCustomerSuccessEvent;
+
         public string FirstName { get; }
 
         public string LastName { get; }

@@ -8,15 +8,15 @@ namespace Framework.Shared.Messaging
 {
     public static class MessagingServiceCollectionRegistration
     {
-        public static void AddMessagingDependencies(this IServiceCollection serviceCollection, string assemblyNameToCommandAndHandlers)
+        public static void AddMessagingDependencies(this IServiceCollection serviceCollection, string assemblyNameContainingCommandAndHandlers)
         {
-            Assembly.Load(assemblyNameToCommandAndHandlers);
+            Assembly.Load(assemblyNameContainingCommandAndHandlers);
 
             serviceCollection
                 .AddSingleton<ICommandDispatcher, CommandDispatcher>()
                 .AddSingleton<IEventDispatcher, EventDispatcher>()
-                .AddSingletonHandlers(typeof(ICommandHandler<>));
-                //.AddSingletonHandlers(typeof(IEventHandler<>));
+                .AddSingletonHandlers(typeof(ICommandHandler<>))
+                .AddSingletonHandlers(typeof(IEventHandler<>));
         }
 
         public static IServiceCollection AddSingletonHandlers(this IServiceCollection serviceCollection, Type openGenericType)

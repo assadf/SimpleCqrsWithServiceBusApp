@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Framework.Shared.Messaging;
 
 namespace Framework.Shared.Core
@@ -25,6 +26,14 @@ namespace Framework.Shared.Core
         public void SetId(int id)
         {
             Id = id;
+        }
+
+        public async Task RaiseEventsAsync(IEventBus eventBus)
+        {
+            foreach (var @event in Events)
+            {
+                await eventBus.SendAsync(@event).ConfigureAwait(false);
+            }
         }
     }
 }

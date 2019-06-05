@@ -27,7 +27,7 @@ namespace CustomerServiceApp.Domain.CommandHandlers
 
             if (customer.Id == 0)
             {
-                customer.AddEvent(new CustomerFailedToCreateEvent());
+                customer.FailedToCreate();
             }
             else
             {

@@ -52,6 +52,12 @@ namespace CustomerServiceApp.Domain.Entities.CustomerAggregate
 
 #endregion
 
+        public void FailedToCreate()
+        {
+            ClearAllEvents();
+            AddEvent(new CustomerFailedToCreateEvent());
+        }
+
         public bool IsEligible(Brand brand)
         {
             var today = DateTime.Today;

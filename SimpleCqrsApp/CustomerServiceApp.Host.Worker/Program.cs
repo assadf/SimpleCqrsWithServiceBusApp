@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace CustomerServiceApp.Host.Worker
             serviceCollection.AddSingleton<ICustomerRepository, CustomerSqlRepository>();
             serviceCollection.AddSingleton<IBrandRepository, BrandRestApiRepository>();
             serviceCollection.AddSingleton<IEventBus>(new AzureEventBus(connectionString));
+            serviceCollection.AddSingleton(new HttpClient());
             serviceCollection.AddMessagingDependencies("CustomerServiceApp.Domain");
 
             _dispatcher = new CommandDispatcher(serviceCollection.BuildServiceProvider());

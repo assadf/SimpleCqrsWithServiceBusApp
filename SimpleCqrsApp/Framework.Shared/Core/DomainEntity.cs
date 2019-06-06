@@ -7,7 +7,7 @@ namespace Framework.Shared.Core
 {
     public abstract class DomainEntity
     {
-        public int Id { get; private set; }
+        public int Id { get; protected set; }
 
         private readonly IDictionary<Type, IEvent> _events = new Dictionary<Type, IEvent>();
 
@@ -23,7 +23,7 @@ namespace Framework.Shared.Core
             _events.Clear();
         }
 
-        public void SetId(int id)
+        public virtual void SetId(int id)
         {
             Id = id;
         }

@@ -2,33 +2,34 @@
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DataWarehouseServiceApp.Domain.Events;
 using Framework.Shared.Messaging;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using PolicyAdminServiceApp.Domain.Events;
 
-namespace PolicyAdminServiceApp.Host.CustomerEventsWorker
+namespace DataWarehouseServiceApp.Host.CustomerEventsWorker
 {
-    public class Program
+    class Program
     {
         private static EventDispatcher _dispatcher;
         private static bool _isRunning;
         private static SubscriptionClient _subscriptionClient;
 
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             _isRunning = true;
 
-            Console.WriteLine("Started Policy Admin Customer Events Worker");
+            Console.WriteLine("Started Data Warehouse Events Worker");
 
             var connectionString = "Endpoint=sb://sb-poc-assad.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=aFc9QxcotbKor/RJTt/nXZKuFGKbz1K1J30ZhmglvXM=";
 
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddMessagingDependencies("PolicyAdminServiceApp.Domain");
+            serviceCollection.AddMessagingDependencies("DataWarehouseServiceApp.Domain");
 
             _dispatcher = new EventDispatcher(serviceCollection.BuildServiceProvider());
-            _subscriptionClient = new SubscriptionClient(connectionString, "customer-success-events", "PolicyAdmin");
+            _subscriptionClient = new SubscriptionClient(connectionString, "customer-success-events", "DataWarehouse");
             RegisterOnMessageHandlerAndReceiveMessages();
 
             while (_isRunning)

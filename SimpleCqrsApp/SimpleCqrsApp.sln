@@ -27,14 +27,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrandServiceApp.Domain", "B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PolicyAdminServiceApp", "PolicyAdminServiceApp", "{C291B552-2671-40BD-88AB-990006A18CDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolicyAdminServiceApp.Host.CustomerEventsWorker", "PolicyAdminServiceApp.Host.EventsWorker\PolicyAdminServiceApp.Host.CustomerEventsWorker.csproj", "{B4119EAD-0241-4859-B93F-58A7BC9AF23A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolicyAdminServiceApp.Host.CustomerEventsWorker", "PolicyAdminServiceApp.Host.EventsWorker\PolicyAdminServiceApp.Host.CustomerEventsWorker.csproj", "{B4119EAD-0241-4859-B93F-58A7BC9AF23A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolicyAdminServiceApp.Domain", "PolicyAdminServiceApp.Domain\PolicyAdminServiceApp.Domain.csproj", "{F2E11421-57BF-4212-9A21-5FEFD5FAB118}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolicyAdminServiceApp.Domain", "PolicyAdminServiceApp.Domain\PolicyAdminServiceApp.Domain.csproj", "{F2E11421-57BF-4212-9A21-5FEFD5FAB118}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2D579012-C599-4D02-BDF4-0C8D91355253}"
 	ProjectSection(SolutionItems) = preProject
 		MicroserviceArchitecture.vsdx = MicroserviceArchitecture.vsdx
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataWarehouseServiceApp", "DataWarehouseServiceApp", "{47D15567-9377-4BF6-A790-7B63BB6D4305}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataWarehouseServiceApp.Host.CustomerEventsWorker", "DataWarehouseServiceApp.Host.CustomerEventsWorker\DataWarehouseServiceApp.Host.CustomerEventsWorker.csproj", "{4D09A7EE-1B59-49CD-B7C8-A7DDBE854E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataWarehouseServiceApp.Domain", "DataWarehouseServiceApp.Domain\DataWarehouseServiceApp.Domain.csproj", "{7F52672E-FE0C-43E1-B1B6-C592B32D82B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +88,14 @@ Global
 		{F2E11421-57BF-4212-9A21-5FEFD5FAB118}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2E11421-57BF-4212-9A21-5FEFD5FAB118}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2E11421-57BF-4212-9A21-5FEFD5FAB118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D09A7EE-1B59-49CD-B7C8-A7DDBE854E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D09A7EE-1B59-49CD-B7C8-A7DDBE854E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D09A7EE-1B59-49CD-B7C8-A7DDBE854E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D09A7EE-1B59-49CD-B7C8-A7DDBE854E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F52672E-FE0C-43E1-B1B6-C592B32D82B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F52672E-FE0C-43E1-B1B6-C592B32D82B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F52672E-FE0C-43E1-B1B6-C592B32D82B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F52672E-FE0C-43E1-B1B6-C592B32D82B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +111,8 @@ Global
 		{911BA156-34C0-4F73-B056-3E9AC217957B} = {13880BB7-CE3E-45D6-935A-4DC5E8B534D6}
 		{B4119EAD-0241-4859-B93F-58A7BC9AF23A} = {C291B552-2671-40BD-88AB-990006A18CDE}
 		{F2E11421-57BF-4212-9A21-5FEFD5FAB118} = {C291B552-2671-40BD-88AB-990006A18CDE}
+		{4D09A7EE-1B59-49CD-B7C8-A7DDBE854E85} = {47D15567-9377-4BF6-A790-7B63BB6D4305}
+		{7F52672E-FE0C-43E1-B1B6-C592B32D82B4} = {47D15567-9377-4BF6-A790-7B63BB6D4305}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00DFE09F-9A87-4FF0-81C2-4F9F23CD78BC}

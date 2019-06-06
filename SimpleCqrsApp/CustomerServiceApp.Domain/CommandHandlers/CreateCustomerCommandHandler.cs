@@ -24,11 +24,7 @@ namespace CustomerServiceApp.Domain.CommandHandlers
             var customer = Customer.Create(command);
             await _customerRepository.CreateAsync(customer).ConfigureAwait(false);
 
-            if (customer.Id == 0)
-            {
-                customer.FailedToCreate();
-            }
-            else
+            if (customer.ValidateForEligibility)
             {
                 var brand = await _brandRepository.GetBrandAsync(command.BrandId).ConfigureAwait(false);
                 customer.IsEligible(brand);

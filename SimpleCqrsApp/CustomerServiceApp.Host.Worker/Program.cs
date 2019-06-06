@@ -24,7 +24,7 @@ namespace CustomerServiceApp.Host.CommandsWorker
         {
             IsRunning = true;
 
-            Console.WriteLine("Started Customer Worker");
+            Console.WriteLine("Started Customer Commands Worker");
 
             var connectionString = "Endpoint=sb://sb-poc-assad.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=aFc9QxcotbKor/RJTt/nXZKuFGKbz1K1J30ZhmglvXM=";
             var commandQueueName = "customer-commands";
@@ -72,6 +72,8 @@ namespace CustomerServiceApp.Host.CommandsWorker
         {
             try
             {
+                Console.WriteLine($"Received message: SequenceNumber:{message.SystemProperties.SequenceNumber} Body:{Encoding.UTF8.GetString(message.Body)}");
+                
                 ICommand command;
 
                 if (message.ContentType == typeof(CreateCustomerCommand).Name)

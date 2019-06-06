@@ -8,13 +8,23 @@ namespace CustomerServiceApp.Domain.Entities.CustomerAggregate
 {
     public class Customer : DomainEntity, IAggregateRoot
     {
-        public int Id { get; }
+
+        #region Factories
+
+        public static Customer Create(CreateCustomerCommand command)
+        {
+            return new Customer(command.FirstName, command.LastName, command.DateOfBirth);
+        }
+
+        #endregion
 
         public string FirstName { get; }
 
         public string LastName { get; }
 
         public DateTime DateOfBirth { get; set; }
+
+        public bool ValidateForEligibility { get; private set; }
 
         private Customer(string firstName, string lastName, DateTime dateOfBirth) : this(-1, firstName, lastName, dateOfBirth) {}
 
@@ -39,25 +49,8 @@ namespace CustomerServiceApp.Domain.Entities.CustomerAggregate
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
-
-            AddEvent(new CustomerCreatedEvent(FirstName, LastName, DateOfBirth));
         }
-
-#region Factories
-
-        public static Customer Create(CreateCustomerCommand command)
-        {
-            return new Customer(command.FirstName, command.LastName, command.DateOfBirth);
-        }
-
-#endregion
-
-        public void FailedToCreate()
-        {
-            ClearAllEvents();
-            AddEvent(new CustomerFailedToCreateEvent());
-        }
-
+        
         public bool IsEligible(Brand brand)
         {
             var today = DateTime.Today;
@@ -77,6 +70,22 @@ namespace CustomerServiceApp.Domain.Entities.CustomerAggregate
             }
 
             return false;
+        }
+
+        public override void SetId(int id)
+        {
+            base.SetId(id);
+
+            if (Id > 0)
+            {
+                AddEvent(new CustomerCreatedEvent(Id, FirstName, LastName, DateOfBirth));
+                ValidateForEligibility = true;
+            }
+            else
+            {
+                AddEvent(new CustomerFailedToCreateEvent());
+                ValidateForEligibility = false;
+            }
         }
     }
 }

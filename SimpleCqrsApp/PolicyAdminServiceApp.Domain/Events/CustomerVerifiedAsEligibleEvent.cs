@@ -5,19 +5,13 @@ namespace PolicyAdminServiceApp.Domain.Events
 {
     public class CustomerVerifiedAsEligibleEvent : IEvent
     {
-        public Guid EventId { get; }
+        public Guid EventId { get; set; }
 
-        public string CategoryName => EventCategories.NewCustomerSuccessEvent;
+        public string CategoryName { get; set; }
 
-        public int CustomerId { get;  }
+        public int Id { get; set; }
 
-        public DateTime ExpirationDate { get; }
+        public DateTime ExpirationDate { get; set; }
 
-        public CustomerVerifiedAsEligibleEvent(int customerId, DateTime expirationDate)
-        {
-            EventId = Guid.NewGuid();
-            CustomerId = customerId;
-            ExpirationDate = expirationDate;
-        }
     }
 }

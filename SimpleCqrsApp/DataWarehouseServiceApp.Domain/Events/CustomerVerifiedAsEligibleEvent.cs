@@ -1,7 +1,7 @@
 ﻿using System;
 using Framework.Shared.Messaging;
 
-namespace CustomerServiceApp.Domain.Events
+namespace PolicyAdminServiceApp.Domain.Events
 {
     public class CustomerVerifiedAsEligibleEvent : IEvent
     {
@@ -9,14 +9,14 @@ namespace CustomerServiceApp.Domain.Events
 
         public string CategoryName => EventCategories.NewCustomerSuccessEvent;
 
-        public int Id { get;  }
+        public int CustomerId { get;  }
 
         public DateTime ExpirationDate { get; }
 
-        public CustomerVerifiedAsEligibleEvent(int id, DateTime expirationDate)
+        public CustomerVerifiedAsEligibleEvent(int customerId, DateTime expirationDate)
         {
             EventId = Guid.NewGuid();
-            Id = id;
+            CustomerId = customerId;
             ExpirationDate = expirationDate;
         }
     }

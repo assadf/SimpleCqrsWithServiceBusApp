@@ -25,11 +25,6 @@ namespace Framework.Shared.Messaging
 
             foreach (var assembly in assemblies)
             {
-                if (assembly.GetName().Name == "CustomerServiceApp.Domain")
-                {
-                    var name = assembly.GetName();
-                }
-
                 var concreteCommandHandlerTypes = GetConcreteCommandHandlerTypes(openGenericType, assembly);
 
                 foreach (var concreteCommandHandlerType in concreteCommandHandlerTypes)
